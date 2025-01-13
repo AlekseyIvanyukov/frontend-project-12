@@ -1,0 +1,26 @@
+{
+  "name": "@hexlet/code",
+  "version": "1.0.0",
+  "description": "Chat",
+  "homepage": "https://github.com/AlekseyIvanyukov/frontend-project-12#readme",
+  "bugs": {
+    "url": "https://github.com/AlekseyIvanyukov/frontend-project-12/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlekseyIvanyukov/frontend-project-12.git"
+  },
+  "license": "ISC",
+  "author": "Aleksey Ivanyukov",
+  "type": "commonjs",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npm run build --prefix frontend",
+    "start": "start-server -s ./frontend/build",
+    "postinstall": "cd frontend && npm ci"
+  },
+  "dependencies": {
+    "@hexlet/chat-server": "^2.0.4"
+  }
+}
