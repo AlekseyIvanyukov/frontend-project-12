@@ -36,7 +36,7 @@
 
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { PageOne, PageTwo } from './Components/Pages';
+import { PageOne, PageTwo } from './Components/Pages.jsx';
 
 function App() {
   return (
