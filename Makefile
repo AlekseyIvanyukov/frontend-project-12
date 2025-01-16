@@ -10,6 +10,9 @@ start-frontend:
 start-backend:
 	npm run start-server -s ./frontend/build
 
+start:
+	make start-backend
+
 develop:
 	make start-backend & make start-frontend
 
