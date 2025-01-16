@@ -8,7 +8,7 @@ start-frontend:
 	make -C frontend start
 
 start-backend:
-	npm run start
+	npm run start-server -s ./frontend/build
 
 develop:
 	make start-backend & make start-frontend

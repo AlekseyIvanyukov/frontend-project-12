@@ -6,10 +6,10 @@ const BuildPage = (index) => (
       Page {index}
     </h3>
     <div>
-      Page {index} content: { loremIpsum({ count: 5 }) }
+      Page {index} content: { loremIpsum({ count: 5 })}
     </div>
   </>
-)
+);
 
 export const PageOne = () => BuildPage(1);
 export const PageTwo = () => BuildPage(2);
