@@ -34,27 +34,27 @@
 
 // export default App
 
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import React from 'react';
 import Main from './Pages/Main.jsx';
 import Login from './Pages/Login.jsx';
 import NotFound from './Pages/NotFound.jsx';
 import SignUp from './Pages/SignUp.jsx';
+import Navigation from './Components/navigation.jsx';
 
-const App = () => {
-  return (
-    <div className="d-flex flex-column h-100">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Main />} />
-          <Route path="/login" element={<Login />} />
-          {/* <Route path="/signup" element={<SignUp />} /> */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </div>
+const App = () => (
+  <div className="d-flex flex-column h-100">
+    <BrowserRouter>
+      <Navigation />
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="/login" element={<Login />} />
+        {/* <Route path="/signup" element={<SignUp />} /> */}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </BrowserRouter>
+  </div>
   );
-};
 
 export default App;
