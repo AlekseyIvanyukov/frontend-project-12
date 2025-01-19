@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; 
+import Container from '../Components/Container';
 
-const HomePage = () => {
+const MainPage = () => {
   const navigate = useNavigate(); 
 
   useEffect(() => {
@@ -11,8 +12,8 @@ const HomePage = () => {
     }
   }, );
   return (
-    <h1>Страничка с чатом</h1>
+    <Container />
   );
 };
 
-export default HomePage;
+export default MainPage;

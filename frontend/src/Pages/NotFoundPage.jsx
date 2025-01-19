@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
 import routes from "../routes";
+import notFound from "../assets/notFound.svg";
 
 const NotFoundPage = () => {
   return (
     <div class="text-center mt-5">
       <img
-        src={NotFoundPage}
+        src={notFound}
         alt="Страница не найдена"
         className="img-fluid h-25"
         width={300}
