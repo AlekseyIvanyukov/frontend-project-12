@@ -6,8 +6,10 @@ import { useFormik } from "formik";
 import { useNavigate } from 'react-router-dom';
 import useAuth from "../hooks/useAuth";
 import routes from "../routes";
+import { useTranslation } from "react-i18next";
 
 const LoginForm = () => {
+    const { t } = useTranslation();
     const auth = useAuth();
     const [authFailed, setAuthFailed] = useState(false);
     const inputRef = useRef(null);
@@ -43,7 +45,7 @@ const LoginForm = () => {
       onSubmit={formik.handleSubmit}
     >
       <fieldset>
-        <h1 className="text-center mb-4">Войти</h1>
+        <h1 className="text-center mb-4">{t('loginForm.title')}</h1>
         <Form.Group className="form-floating mb-3">
           <Form.Control
             name="username"
@@ -56,7 +58,7 @@ const LoginForm = () => {
             onChange={formik.handleChange}
             value={formik.values.username}
           />
-            <Form.Label htmlFor="username">Ваш ник</Form.Label>
+            <Form.Label htmlFor="username">{t('loginForm.username')}</Form.Label>
         </Form.Group>
         <Form.Group className="form-floating mb-4">
           <Form.Control
@@ -70,15 +72,15 @@ const LoginForm = () => {
             onChange={formik.handleChange}
             value={formik.values.password}
           />
-          <Form.Label htmlFor="password">Ваш пароль</Form.Label>
-          <Form.Control.Feedback type="invalid">Неправильные имя или пароль</Form.Control.Feedback>
+          <Form.Label htmlFor="password">{t('loginForm.password')}</Form.Label>
+          <Form.Control.Feedback type="invalid">{t('loginForm.feedback')}</Form.Control.Feedback>
         </Form.Group>
         <Button
           type="submit"
           variant="outline-primary"
           className="w-100 mb-3"
         >
-          Войти
+          {t('loginForm.submitButton')}
         </Button>
       </fieldset>
     </Form>

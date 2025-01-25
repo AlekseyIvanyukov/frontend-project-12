@@ -1,19 +1,21 @@
 import { Link } from "react-router-dom";
 import routes from "../routes";
 import notFound from "../assets/notFound.svg";
+import { useTranslation } from 'react-i18next';
 
 const NotFoundPage = () => {
+  const { t } = useTranslation();
   return (
     <div class="text-center mt-5">
       <img
         src={notFound}
-        alt="Страница не найдена"
+        alt="{t('notFoundPage.logoAlt')}"
         className="img-fluid h-25"
         width={300}
       />
-      <h1 className="h4 text-muted">Страница не найдена</h1>
+      <h1 className="h4 text-muted">{t('notFoundPage.title')}</h1>
       <p>
-        "Но вы можете перейти "<Link to={routes.mainPagePath()}>на главную страницу</Link>
+        {t('notFoundPage.text')}<Link to={routes.mainPagePath()}>{t('notFoundPage.link')}</Link>
       </p>
     </div>
   );

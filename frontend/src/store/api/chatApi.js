@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { io } from 'socket.io-client';
+// import chatApi from './routes';
 
 const socket = io();
 
@@ -14,7 +15,24 @@ const addSocketListener = async (
     await cacheDataLoaded;
     const handleEvent = (payload) => {
       updateCachedData((draft) => {
-        draft.push(payload);
+        switch (event) {
+          case 'newChannel':
+            break;
+          case 'newMessage':
+            draft.push(payload);
+            break;
+          case 'renameChannel': {
+            const channel = draft.find((ch) => ch.id === payload.id);
+            if (channel) {
+              channel.name = payload.name;
+            }
+            break;
+          }
+          case 'removeChannel':
+            return draft.filter((ch) => ch.id !== payload.id);
+          default:
+            break;
+        }
       });
     };
     socket.on(event, handleEvent);
@@ -29,6 +47,7 @@ export const chatApi = createApi({
   reducerPath: 'chatApi',
   tagTypes: ['Channel', 'Message'],
   baseQuery: fetchBaseQuery({
+    // baseUrl: chatApi,
     baseUrl: '/api/v1',
     prepareHeaders: (headers) => {
       const token = localStorage.getItem('token');
@@ -57,10 +76,24 @@ export const chatApi = createApi({
           'newChannel',
           cacheDataLoaded,
           updateCachedData,
-          cacheEntryRemoved
+          cacheEntryRemoved,
+        );
+        addSocketListener(
+          socket,
+          'renameChannel',
+          cacheDataLoaded,
+          updateCachedData,
+          cacheEntryRemoved,
+        );
+        addSocketListener(
+          socket,
+          'removeChannel',
+          cacheDataLoaded,
+          updateCachedData,
+          cacheEntryRemoved,
         );
       },
-      providesTags: ['Channel'],
+      providesTags: ['Channel', 'Message'],
     }),
     addChannel: builder.mutation({
       query: (newChannel) => ({
@@ -68,7 +101,7 @@ export const chatApi = createApi({
         method: 'POST',
         body: newChannel,
       }),
-      invalidatesTags: ['Channel'],
+      invalidatesTags: ['Channel', 'Message'],
     }),
     renameChannel: builder.mutation({
       query: ({ id, name }) => ({
@@ -76,7 +109,7 @@ export const chatApi = createApi({
         method: 'PATCH',
         body: { name },
       }),
-      invalidatesTags: ['Channel'],
+      invalidatesTags: ['Channel', 'Message'],
     }),
     deleteChannel: builder.mutation({
       query: ({ id }) => ({
@@ -99,7 +132,7 @@ export const chatApi = createApi({
           cacheEntryRemoved
         );
       },
-      providesTags: ['Message'],
+      providesTags: ['Message', 'Channel'],
     }),
     addMessage: builder.mutation({
       query: (newMessage) => ({
@@ -107,7 +140,6 @@ export const chatApi = createApi({
         method: 'POST',
         body: newMessage,
       }),
-
       invalidatesTags: ['Message'],
     }),
   }),

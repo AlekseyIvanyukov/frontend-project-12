@@ -5,8 +5,11 @@ import login from '../assets/login.jpg';
 import routes from '../routes';
 import Container from '../Components/Container';
 import LoginForm from "./LoginForm";
+import { useTranslation } from 'react-i18next';
 
 const LoginPage = () => {
+  const { t } = useTranslation();
+
   return (
     <Container>
       <div className="card-body row p-5">
@@ -15,8 +18,8 @@ const LoginPage = () => {
       </div>
       <div className="card-footer p-4">
         <div className="text-center">
-          <span>Нет аккаунта? </span>
-          <Link to={routes.signupPagePath()}>Регистрация</Link>
+          <span>{t('loginPage.question')}</span>
+          <Link to={routes.signupPagePath()}>{t('loginPage.registration')}</Link>
         </div>
       </div>
     </Container>

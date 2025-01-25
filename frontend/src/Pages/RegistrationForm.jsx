@@ -7,8 +7,10 @@ import { toast } from 'react-toastify';
 import validateYupSchema from '../validate';
 import routes from '../routes';
 import useAuth from '../hooks/useAuth';
+import { useTranslation } from 'react-i18next';
 
 const RegistrationForm = () => {
+  const { t } = useTranslation();
   const auth = useAuth();
   const navigate = useNavigate();
   const [isError, setIsError] = useState(false);
@@ -44,7 +46,7 @@ const RegistrationForm = () => {
  return (
   <Form className='w-50' onSubmit={formik.handleSubmit}>
     <fieldset>
-    <h1 className='text-center mb-4'>Регистрация</h1>
+    <h1 className='text-center mb-4'>{t('signupForm.title')}</h1>
     <Form.Group className='form-floating mb-3'>
      <Form.Control
       name='username'
@@ -57,9 +59,9 @@ const RegistrationForm = () => {
       onChange={formik.handleChange}
       value={formik.values.username}
      />
-     <Form.Label htmlFor='username'>Имя пользователя</Form.Label>
+     <Form.Label htmlFor='username'>{t('signupForm.username')}</Form.Label>
      <Form.Control.Feedback type='invalid' tooltip>
-      {isError ? 'Такой пользователь уже существует' : formik.errors.username }
+      {isError ? t('signupForm.errors.usernameExist') : formik.errors.username }
      </Form.Control.Feedback>
     </Form.Group>
     <Form.Group className='form-floating mb-3'>
@@ -74,7 +76,7 @@ const RegistrationForm = () => {
       onChange={formik.handleChange}
       value={formik.values.password}
      />
-     <Form.Label htmlFor='password'>Пароль</Form.Label>
+     <Form.Label htmlFor='password'>{t('signupForm.password')}</Form.Label>
      <Form.Control.Feedback type='invalid' tooltip>
       {formik.errors.password}
      </Form.Control.Feedback>
@@ -93,13 +95,13 @@ const RegistrationForm = () => {
       }
       value={formik.values.confirmPassword}
      />
-     <Form.Label htmlFor='ConfirmPassword'>Подтвердите пароль</Form.Label>
+     <Form.Label htmlFor='ConfirmPassword'>{t('signupForm.confirmPassword')}</Form.Label>
      <Form.Control.Feedback type='invalid' tooltip>
       {formik.errors.confirmPassword}
      </Form.Control.Feedback>
     </Form.Group>
     <Button type='submit' variant='outline-primary' className='w-100 mb-3'>
-     Зарегестрироваться
+      {t('signupForm.submitButton')}
     </Button>
    </fieldset>
   </Form>
