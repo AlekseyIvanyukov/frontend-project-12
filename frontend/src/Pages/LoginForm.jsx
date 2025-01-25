@@ -1,3 +1,4 @@
+/* eslint-disable react/react-in-jsx-scope */
 import axios from "axios";
 import { useRef, useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
@@ -20,7 +21,6 @@ const LoginForm = () => {
       initialValues: { username: "", password: "" },
       onSubmit: async (values) => {
         setAuthFailed(false);
-  
         try {
           const res = await axios.post(routes.loginApiPath(), values);
           auth.logIn(res.data.token, values.username);

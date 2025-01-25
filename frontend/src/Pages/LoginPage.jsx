@@ -1,3 +1,4 @@
+/* eslint-disable react/react-in-jsx-scope */
 import { Link } from "react-router-dom";
 import Image from '../Components/Image';
 import login from '../assets/login.jpg';

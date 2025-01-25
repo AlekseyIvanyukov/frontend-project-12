@@ -1,3 +1,4 @@
+/* eslint-disable react/react-in-jsx-scope */
 const Container = ({ children }) => {
   return (
     <div className="container-fluid h-100">

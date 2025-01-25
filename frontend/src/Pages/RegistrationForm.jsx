@@ -9,37 +9,37 @@ import routes from '../routes';
 import useAuth from '../hooks/useAuth';
 
 const RegistrationForm = () => {
- const auth = useAuth();
- const navigate = useNavigate();
- const [isError, setIsError] = useState(false)
+  const auth = useAuth();
+  const navigate = useNavigate();
+  const [isError, setIsError] = useState(false);
 
- const inputRef = useRef(null);
- useEffect(() => {
-  inputRef.current.focus();
- }, []);
- const formik = useFormik({
-  initialValues: { username: '', password: '', confirmPassword: '' },
-  validationSchema: validateYupSchema(),
-  onSubmit: async (values) => {
-   try {
-    const res = await axios.post('/api/v1/signup', values);
-    auth.logIn(res.data.token, values.username);
-    navigate(routes.mainPagePath());
-    setIsError(false)
-   } catch (err) {
-    formik.setSubmitting(false);
-    if (err.isAxiosError && err.response.status === 401) {
-     inputRef.current.select();
-     toast.error('Ошибка регистрации');
-     return;
-    } else if (err.response.status === 409) {
-     inputRef.current.select();
-     setIsError(true)
-    }
-    throw err;
-  }
-  },
- });
+  const inputRef = useRef(null);
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
+  const formik = useFormik({
+    initialValues: { username: '', password: '', confirmPassword: '' },
+    validationSchema: validateYupSchema(),
+    onSubmit: async (values) => {
+      try {
+        const response = await axios.post(routes.signupApiPath(), values);
+        auth.logIn(response.data.token, values.username);
+        navigate(routes.mainPagePath());
+        setIsError(false)
+      } catch (err) {
+        formik.setSubmitting(false);
+        if (err.isAxiosError && err.response.status === 401) {
+          inputRef.current.select();
+          toast.error('Ошибка регистрации');
+          return;
+        } if (err.response.status === 409) {
+          inputRef.current.select();
+          setIsError(true);
+        }
+        throw err;
+      }
+    },
+  });
 
  return (
   <Form className='w-50' onSubmit={formik.handleSubmit}>
@@ -93,7 +93,7 @@ const RegistrationForm = () => {
       }
       value={formik.values.confirmPassword}
      />
-     <Form.Label htmlFor='password'>Подтвердите пароль</Form.Label>
+     <Form.Label htmlFor='ConfirmPassword'>Подтвердите пароль</Form.Label>
      <Form.Control.Feedback type='invalid' tooltip>
       {formik.errors.confirmPassword}
      </Form.Control.Feedback>
