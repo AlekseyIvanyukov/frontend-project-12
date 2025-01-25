@@ -1,23 +1,25 @@
 import { object, string, ref } from 'yup';
 
-export const channelNamesShema = (channelNames) => object({
+export const channelNamesShema = (channelNames, t) => object({
   name: string()
-    .min(3, 'не менее 3 символов')
-    .max(20, 'не более 20 символов')
-    .notOneOf(channelNames, 'Такое имя уже есть'),
+  .min(3, t('modal.validation.range'))
+  .max(20, t('modal.validation.range'))
+  .notOneOf(channelNames, t('modal.validation.notOneOf'))
+  .matches(/^\S.*\S$/, t('modal.validation.required'))
+  .required(t('modal.validation.required')),
 });
 
-const validateYupSchema = () => object().shape({
+const validateYupSchema = (t) => object().shape({
   username: string()
-    .min(3, 'От 3 до 20 символов')
-    .max(20, 'От 3 до 20 символов')
-    .required('Поле обязательно'),
+    .min(3, t('signupForm.errors.usernameRange'))
+    .max(20, t('signupForm.errors.usernameRange'))
+    .required(t('signupForm.errors.required')),
   password: string()
-    .min(6, 'Минимум 6 символов')
-    .required('Поле обязательно'),
+    .min(6, t('signupForm.errors.passwordRange'))
+    .required(t('signupForm.errors.required')),
   confirmPassword: string()
-    .oneOf([ref('password'), null], 'Пароли должны совпадать')
-    .required('Поле обязательно'),
+    .oneOf([ref('password'), null], t('signupForm.errors.passwordConfirm'))
+    .required(t('signupForm.errors.required')),
 });
 
 export default validateYupSchema;

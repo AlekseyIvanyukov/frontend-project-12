@@ -6,7 +6,7 @@ import getModal from '../Pages/Modals';
 import Loading from '../Components/Loading';
 import DropdownMenu from './DropDownMenu';
 import ChannelItem from './ChannelItem';
-import Title from './ChannelTitle';
+import ChannelTitle from './ChannelTitle';
 
 const ChannelsList = () => {
   const { t } = useTranslation();
@@ -26,36 +26,31 @@ const ChannelsList = () => {
 
   return (
     <div className="col-4 col-md-2 border-end px-0 bg-light flex-column h-100 d-flex">
-    <Title
-      renderModal={renderModal}
-      modalType={modalType}
-      closeModal={handleCloseModal}
-      openModal={handleOpenModal}
-      t={t}
-    />
-    <ul
-      id="channels-box"
-      className="nav flex-column nav-pills nav-fill px-2 mb-3 overflow-auto h-100 d-block"
-    >
-      {isLoading && <Loading />}
-      {channels?.map((channel) => (
-        <li className="nav-item w-100" key={channel.id}>
-          {isEditableChannel(channel) ? (
-            <DropdownMenu
-              renderModal={renderModal}
-              modalType={modalType}
-              closeModal={handleCloseModal}
-              openModal={handleOpenModal}
-              channel={channel}
-              t={t}
-            />
-          ) : (
-            <ChannelItem channel={channel} />
-          )}
-        </li>
-      ))}
-    </ul>
-  </div>
+      <ChannelTitle
+        openModal={handleOpenModal}
+        t={t}
+      />
+      <ul
+        id="channels-box"
+        className="nav flex-column nav-pills nav-fill px-2 mb-3 overflow-auto h-100 d-block"
+      >
+        {isLoading && <Loading />}
+        {channels?.map((channel) => (
+          <li className="nav-item w-100" key={channel.id}>
+            {isEditableChannel(channel) ? (
+              <DropdownMenu
+                openModal={handleOpenModal}
+                channel={channel}
+                t={t}
+              />
+            ) : (
+              <ChannelItem channel={channel} />
+            )}
+          </li>
+        ))}
+      </ul>
+      {renderModal(modalType, handleCloseModal)}
+    </div>
   );
 };
 

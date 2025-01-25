@@ -4,10 +4,7 @@ import { activeChannelSelector } from '../store/slices/activeChannelSlice';
 import ChannelItem from './ChannelItem';
 
 const DropdownMenu = ({
-  renderModal,
-  closeModal,
   openModal,
-  modalType,
   channel,
   t,
 }) => {
@@ -23,13 +20,12 @@ const DropdownMenu = ({
         <span className="visually-hidden">{t('channel.description')}</span>
       </Dropdown.Toggle>
       <Dropdown.Menu>
-        <Dropdown.Item onClick={() => openModal('removing')}>
+        <Dropdown.Item onClick={() => openModal('removing', channel)}>
           {t('channel.deleteButton')}
         </Dropdown.Item>
         <Dropdown.Item onClick={() => openModal('renaming', channel)}>
           {t('channel.renameButton')}
         </Dropdown.Item>
-        {renderModal(modalType, closeModal, channel)}
       </Dropdown.Menu>
     </Dropdown>
   );

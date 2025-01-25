@@ -41,7 +41,7 @@ const MessagesForm = ({
           className="border-0 p-0 ps-2 form-control"
           value={formik.values.body}
           onChange={formik.handleChange}
-          wfd-id="id4"
+          wfd-id="id0"
           ref={inputRef}
         />
         <button type="submit" disabled={isLoading} className="btn btn-group-vertical">
