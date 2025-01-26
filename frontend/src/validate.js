@@ -2,11 +2,11 @@ import { object, string, ref } from 'yup';
 
 export const channelNamesShema = (channelNames, t) => object({
   name: string()
-  .min(3, t('modal.validation.range'))
-  .max(20, t('modal.validation.range'))
-  .notOneOf(channelNames, t('modal.validation.notOneOf'))
-  .matches(/^\S.*\S$/, t('modal.validation.required'))
-  .required(t('modal.validation.required')),
+    .min(3, t('modal.validation.range'))
+    .max(20, t('modal.validation.range'))
+    .notOneOf(channelNames, t('modal.validation.notOneOf'))
+    .matches(/^\S.*\S$/, t('modal.validation.required'))
+    .required(t('modal.validation.required')),
 });
 
 export const signupSchema = (t) => object().shape({
