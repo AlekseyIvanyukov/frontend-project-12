@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { io } from 'socket.io-client';
 import { apiPath } from '../../routes';
@@ -29,9 +30,8 @@ const addSocketListener = async (
         case 'removeChannel':
           return draft.filter((ch) => ch.id !== payload.id);
         default:
-          return draft;
+          break;
       }
-      return null;
     });
     initSocket.on(event, handleEvent);
   } catch (e) {
