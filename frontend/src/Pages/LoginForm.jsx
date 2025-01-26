@@ -1,42 +1,42 @@
-import axios from "axios";
-import { useRef, useEffect, useState } from "react";
-import { Button, Form } from "react-bootstrap";
-import { useFormik } from "formik";
+import axios from 'axios';
+import { useRef, useEffect, useState } from 'react';
+import { Button, Form } from 'react-bootstrap';
+import { useFormik } from 'formik';
 import { useNavigate } from 'react-router-dom';
-import useAuth from "../hooks/useAuth";
-import routes from "../routes";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from 'react-i18next';
+import useAuth from '../hooks/useAuth';
+import routes from '../routes';
 
 const LoginForm = () => {
-    const { t } = useTranslation();
-    const auth = useAuth();
-    const [authFailed, setAuthFailed] = useState(false);
-    const inputRef = useRef(null);
-    const navigate = useNavigate();
-  
-    useEffect(() => {
-      inputRef.current.focus();
-    }, []);
-  
-    const formik = useFormik({
-      initialValues: { username: "", password: "" },
-      onSubmit: async (values) => {
-        setAuthFailed(false);
-        try {
-          const res = await axios.post(routes.loginApiPath(), values);
-          auth.logIn(res.data.token, values.username);
-          navigate(routes.mainPagePath());
-        } catch (err) {
-          formik.setSubmitting(false);
-          if (err.isAxiosError && err.response.status === 401) {
-            setAuthFailed(true);
-            inputRef.current.select();
-            return;
-          }
-          throw err;
+  const { t } = useTranslation();
+  const auth = useAuth();
+  const [authFailed, setAuthFailed] = useState(false);
+  const inputRef = useRef(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
+
+  const formik = useFormik({
+    initialValues: { username: '', password: '' },
+    onSubmit: async (values) => {
+      setAuthFailed(false);
+      try {
+        const res = await axios.post(routes.loginApiPath(), values);
+        auth.logIn(res.data.token, values.username);
+        navigate(routes.mainPagePath());
+      } catch (err) {
+        formik.setSubmitting(false);
+        if (err.isAxiosError && err.response.status === 401) {
+          setAuthFailed(true);
+          inputRef.current.select();
+          return;
         }
-      },
-    });
+        throw err;
+      }
+    },
+  });
 
   return (
     <Form
@@ -57,7 +57,7 @@ const LoginForm = () => {
             onChange={formik.handleChange}
             value={formik.values.username}
           />
-            <Form.Label htmlFor="username">{t('loginForm.username')}</Form.Label>
+          <Form.Label htmlFor="username">{t('loginForm.username')}</Form.Label>
         </Form.Group>
         <Form.Group className="form-floating mb-4">
           <Form.Control
@@ -83,7 +83,7 @@ const LoginForm = () => {
         </Button>
       </fieldset>
     </Form>
-  )
-}
+  );
+};
 
-export default LoginForm
+export default LoginForm;

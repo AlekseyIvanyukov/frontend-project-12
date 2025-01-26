@@ -1,12 +1,12 @@
-import { Link } from "react-router-dom";
-import routes from "../routes";
-import notFound from "../assets/notFound.svg";
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import routes from '../routes';
+import notFound from '../assets/notFound.svg';
 
 const NotFoundPage = () => {
   const { t } = useTranslation();
   return (
-    <div class="text-center mt-5">
+    <div className="text-center mt-5">
       <img
         src={notFound}
         alt="{t('notFoundPage.logoAlt')}"

@@ -1,11 +1,11 @@
 /* eslint-disable react/react-in-jsx-scope */
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import Image from '../Components/Image';
 import login from '../assets/login.jpg';
 import routes from '../routes';
 import Container from '../Components/Container';
-import LoginForm from "./LoginForm";
-import { useTranslation } from 'react-i18next';
+import LoginForm from './LoginForm';
 
 const LoginPage = () => {
   const { t } = useTranslation();

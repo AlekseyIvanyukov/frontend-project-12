@@ -7,7 +7,7 @@ import useLiveData from '../hooks/useLiveData';
 import Loading from '../Components/Loading';
 import DropdownMenu from './DropDownMenu';
 import { openModal, closeModal } from '../store/slices/modalSlice';
-import getModal from '../Pages/Modals/index.js';
+import getModal from './Modals/index.js';
 import defaultChannel from '../defaultChannel';
 import { activeChannelSelector } from '../store/slices/activeChannelSlice';
 

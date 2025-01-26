@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef } from 'react';
 
 const MessagesBox = ({ channelMessages, filter }) => {
   const messagesRef = useRef(null);
@@ -14,7 +14,7 @@ const MessagesBox = ({ channelMessages, filter }) => {
       {channelMessages?.map(({ id, username, body }) => (
         <div className="ext-break mb-2" key={id}>
           <b>{ username}</b>
-            {': '}
+          {': '}
           <span>{filter.clean(body.body)}</span>
         </div>
       ))}

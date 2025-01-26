@@ -1,7 +1,7 @@
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import routes from '../routes';
-import useAuth from "../hooks/useAuth";
-import { useTranslation } from "react-i18next";
+import useAuth from '../hooks/useAuth';
 
 const Navigation = () => {
   const { t } = useTranslation();
@@ -14,10 +14,10 @@ const Navigation = () => {
         </Link>
         {loggedIn && (
           <Link
-          onClick={logOut}
-          to={routes.loginPagePath()}
-          type="button"
-          className="btn btn-primary"
+            onClick={logOut}
+            to={routes.loginPagePath()}
+            type="button"
+            className="btn btn-primary"
           >
             {t('navigation.exitButton')}
           </Link>

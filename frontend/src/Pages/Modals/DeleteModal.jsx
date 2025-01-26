@@ -1,8 +1,8 @@
 import { Button, Form, Modal } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
-import { useDeleteChannelMutation } from '../../store/api/chatApi';
 import { useSelector } from 'react-redux';
+import { useDeleteChannelMutation } from '../../store/api/chatApi';
 
 const DeleteModal = ({ closeModal }) => {
   const { t } = useTranslation();

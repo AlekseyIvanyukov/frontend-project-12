@@ -1,5 +1,5 @@
-import AuthContext from "./AuthContext";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from 'react';
+import AuthContext from './AuthContext';
 
 const AuthProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(!!localStorage.getItem('token'));
@@ -20,7 +20,7 @@ const AuthProvider = ({ children }) => {
     }
   }, []);
 
-  const authValue = useMemo(() => ({ loggedIn, logIn, logOut }), [loggedIn])
+  const authValue = useMemo(() => ({ loggedIn, logIn, logOut }), [loggedIn]);
   return (
     <AuthContext.Provider value={authValue}>
       {children}

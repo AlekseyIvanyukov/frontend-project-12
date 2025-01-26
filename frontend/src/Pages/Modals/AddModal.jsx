@@ -4,10 +4,10 @@ import { useEffect, useRef } from 'react';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
+import filter from 'leo-profanity';
 import { channelNamesShema } from '../../validate';
 import { useGetChannelsQuery, useAddChannelMutation } from '../../store/api/chatApi';
 import { setActiveChannel } from '../../store/slices/activeChannelSlice';
-import filter from 'leo-profanity';
 
 const AddModal = ({ closeModal }) => {
   const { t } = useTranslation();

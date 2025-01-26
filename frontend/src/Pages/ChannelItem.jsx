@@ -15,11 +15,11 @@ const ChannelItem = ({ channel }) => {
   };
   return (
     <button
-      type='button'
+      type="button"
       className={classes}
       onClick={() => handleSetActiveChannel(channel)}
     >
-      <span className='me-1'>#</span>
+      <span className="me-1">#</span>
       {filter.clean(channel.name)}
     </button>
   );

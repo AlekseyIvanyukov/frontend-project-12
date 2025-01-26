@@ -4,9 +4,9 @@ import { useFormik } from 'formik';
 import { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
+import filter from 'leo-profanity';
 import { channelNamesShema } from '../../validate';
 import { useGetChannelsQuery, useRenameChannelMutation } from '../../store/api/chatApi';
-import filter from 'leo-profanity';
 
 const RenameModal = ({ closeModal }) => {
   const { t } = useTranslation();

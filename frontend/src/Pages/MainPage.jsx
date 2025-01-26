@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom';
 import ChatContainer from './ChatContainer';
 import useAuth from '../hooks/useAuth';
 import routes from '../routes';
