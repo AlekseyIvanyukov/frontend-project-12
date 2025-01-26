@@ -16,7 +16,7 @@ const Navigation = () => {
           <Link
           onClick={logOut}
           to={routes.loginPagePath()}
-          type="button "
+          type="button"
           className="btn btn-primary"
           >
             {t('navigation.exitButton')}

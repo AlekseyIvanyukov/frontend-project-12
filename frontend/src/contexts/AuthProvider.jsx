@@ -20,11 +20,12 @@ const AuthProvider = ({ children }) => {
     }
   }, []);
 
-  const value = useMemo(() => ({ loggedIn, logIn, logOut }), [loggedIn])
+  const authValue = useMemo(() => ({ loggedIn, logIn, logOut }), [loggedIn])
   return (
-    <AuthContext.Provider value={value}>
+    <AuthContext.Provider value={authValue}>
       {children}
     </AuthContext.Provider>
   );
 };
-  export default AuthProvider;
+
+export default AuthProvider;

@@ -1,13 +1,13 @@
 import { useEffect, useRef } from "react";
 
 const MessagesBox = ({ channelMessages, filter }) => {
-  const messageRef = useRef(null);
+  const messagesRef = useRef(null);
   useEffect(() => {
-    messageRef.current.scrollTop = messageRef.current.scrollHeight
+    messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
   }, [channelMessages]);
   return (
     <div
-      ref={messageRef}
+      ref={messagesRef}
       id="messages-box"
       className="chat-messages overflow-auto px-5"
     >

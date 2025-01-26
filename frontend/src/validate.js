@@ -9,7 +9,7 @@ export const channelNamesShema = (channelNames, t) => object({
   .required(t('modal.validation.required')),
 });
 
-const validateYupSchema = (t) => object().shape({
+export const signupSchema = (t) => object().shape({
   username: string()
     .min(3, t('signupForm.errors.usernameRange'))
     .max(20, t('signupForm.errors.usernameRange'))
@@ -21,5 +21,3 @@ const validateYupSchema = (t) => object().shape({
     .oneOf([ref('password'), null], t('signupForm.errors.passwordConfirm'))
     .required(t('signupForm.errors.required')),
 });
-
-export default validateYupSchema;

@@ -1,19 +1,16 @@
 import { Button, Form, Modal } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
 import { useDeleteChannelMutation } from '../../store/api/chatApi';
-import { setActiveChannel } from '../../store/slices/activeChannelSlice';
-import defaultChannel from '../../defaultChannel';
+import { useSelector } from 'react-redux';
 
-const DeleteModal = ({ channel, closeModal }) => {
+const DeleteModal = ({ closeModal }) => {
   const { t } = useTranslation();
   const [deleteChannel] = useDeleteChannelMutation();
-  const dispatch = useDispatch();
+  const channel = useSelector((state) => state.modal.channel);
   const handleDelete = async (currentChannel) => {
     try {
       await deleteChannel(currentChannel);
-      dispatch(setActiveChannel(defaultChannel));
       toast.success(t('toastify.success.channel.delete'));
       closeModal();
     } catch (err) {

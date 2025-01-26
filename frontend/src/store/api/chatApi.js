@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { io } from 'socket.io-client';
-// import chatApi from './routes';
+import { apiPath } from '../../routes';
 
 const socket = io();
 
@@ -17,7 +17,6 @@ const addSocketListener = async (
       updateCachedData((draft) => {
         switch (event) {
           case 'newChannel':
-            break;
           case 'newMessage':
             draft.push(payload);
             break;
@@ -47,8 +46,7 @@ export const chatApi = createApi({
   reducerPath: 'chatApi',
   tagTypes: ['Channel', 'Message'],
   baseQuery: fetchBaseQuery({
-    // baseUrl: chatApi,
-    baseUrl: '/api/v1',
+    baseUrl: apiPath,
     prepareHeaders: (headers) => {
       const token = localStorage.getItem('token');
       if (token) {
@@ -69,7 +67,7 @@ export const chatApi = createApi({
       query: () => 'channels',
       onCacheEntryAdded: async (
         _,
-        { updateCachedData, cacheDataLoaded, cacheEntryRemoved }
+        { updateCachedData, cacheDataLoaded, cacheEntryRemoved },
       ) => {
         addSocketListener(
           socket,
@@ -93,15 +91,14 @@ export const chatApi = createApi({
           cacheEntryRemoved,
         );
       },
-      providesTags: ['Channel', 'Message'],
+      providesTags: ['Channel'],
     }),
     addChannel: builder.mutation({
-      query: (newChannel) => ({
+      query: (channelName) => ({
         url: 'channels',
         method: 'POST',
-        body: newChannel,
+        body: channelName,
       }),
-      invalidatesTags: ['Channel', 'Message'],
     }),
     renameChannel: builder.mutation({
       query: ({ id, name }) => ({
@@ -122,14 +119,14 @@ export const chatApi = createApi({
       query: () => 'messages',
       onCacheEntryAdded: async (
         _,
-        { updateCachedData, cacheDataLoaded, cacheEntryRemoved }
+        { updateCachedData, cacheDataLoaded, cacheEntryRemoved },
       ) => {
         addSocketListener(
           socket,
           'newMessage',
           cacheDataLoaded,
           updateCachedData,
-          cacheEntryRemoved
+          cacheEntryRemoved,
         );
       },
       providesTags: ['Message', 'Channel'],

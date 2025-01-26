@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import { channelNamesShema } from '../../validate';
 import { useGetChannelsQuery, useAddChannelMutation } from '../../store/api/chatApi';
 import { setActiveChannel } from '../../store/slices/activeChannelSlice';
+import filter from 'leo-profanity';
 
 const AddModal = ({ closeModal }) => {
   const { t } = useTranslation();
@@ -22,7 +23,8 @@ const AddModal = ({ closeModal }) => {
     validationSchema: channelNamesShema(channelNames, t),
     onSubmit: async ({ name }) => {
       try {
-        const newChannel = await addChannel({ name });
+        const filteredName = filter.clean(name);
+        const newChannel = await addChannel({ name: filteredName });
         dispatch(setActiveChannel(newChannel.data));
         toast.success(t('toastify.success.channel.add'));
         closeModal();

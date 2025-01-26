@@ -3,7 +3,6 @@ import { chatApi } from './api/chatApi';
 import activeChannelReducer from './slices/activeChannelSlice';
 import modalReducer from './slices/modalSlice';
 
-
 const store = configureStore({
   reducer: {
     [chatApi.reducerPath]: chatApi.reducer,

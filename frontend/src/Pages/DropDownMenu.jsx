@@ -3,11 +3,7 @@ import { Dropdown, ButtonGroup } from 'react-bootstrap';
 import { activeChannelSelector } from '../store/slices/activeChannelSlice';
 import ChannelItem from './ChannelItem';
 
-const DropdownMenu = ({
-  openModal,
-  channel,
-  t,
-}) => {
+const DropdownMenu = ({ openModal, channel, t }) => {
   const activeChannel = useSelector(activeChannelSelector);
   return (
     <Dropdown as={ButtonGroup} className="me-2 w-100">

@@ -31,7 +31,6 @@ const MessagesForm = ({
       className="py-1 border rounded-2"
     >
       <div className="input-group has-validation">
-        <Form.Label htmlFor="body" />
         <Form.Control
           required
           id="body"

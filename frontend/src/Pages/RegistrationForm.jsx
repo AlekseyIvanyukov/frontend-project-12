@@ -4,10 +4,10 @@ import { useRef, useEffect, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import validateYupSchema from '../validate';
 import routes from '../routes';
 import useAuth from '../hooks/useAuth';
 import { useTranslation } from 'react-i18next';
+import { signupSchema } from '../validate';
 
 const RegistrationForm = () => {
   const { t } = useTranslation();
@@ -21,18 +21,18 @@ const RegistrationForm = () => {
   }, []);
   const formik = useFormik({
     initialValues: { username: '', password: '', confirmPassword: '' },
-    validationSchema: validateYupSchema(),
+    validationSchema: signupSchema(t),
     onSubmit: async (values) => {
       try {
         const response = await axios.post(routes.signupApiPath(), values);
         auth.logIn(response.data.token, values.username);
         navigate(routes.mainPagePath());
-        setIsError(false)
+        setIsError(false);
       } catch (err) {
         formik.setSubmitting(false);
         if (err.isAxiosError && err.response.status === 401) {
           inputRef.current.select();
-          toast.error('Ошибка регистрации');
+          toast.error(t('toastify.error.authError'));
           return;
         } if (err.response.status === 409) {
           inputRef.current.select();
@@ -95,7 +95,7 @@ const RegistrationForm = () => {
       }
       value={formik.values.confirmPassword}
      />
-     <Form.Label htmlFor='ConfirmPassword'>{t('signupForm.confirmPassword')}</Form.Label>
+     <Form.Label htmlFor='confirmPassword'>{t('signupForm.confirmPassword')}</Form.Label>
      <Form.Control.Feedback type='invalid' tooltip>
       {formik.errors.confirmPassword}
      </Form.Control.Feedback>

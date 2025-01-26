@@ -3,10 +3,10 @@ import { toast } from 'react-toastify';
 import { useFormik } from 'formik';
 import { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { channelNamesShema } from '../../validate';
 import { useGetChannelsQuery, useRenameChannelMutation } from '../../store/api/chatApi';
-import { setActiveChannel } from '../../store/slices/activeChannelSlice';
+import filter from 'leo-profanity';
 
 const RenameModal = ({ closeModal }) => {
   const { t } = useTranslation();
@@ -14,10 +14,9 @@ const RenameModal = ({ closeModal }) => {
   const { data: channels } = useGetChannelsQuery();
   const channelNames = channels?.map((item) => item.name) || [];
   const [renameChannel] = useRenameChannelMutation();
-  const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: {
-      name: channel?.name,
+      name: filter.clean(channel?.name.trim()),
     },
     validationSchema: channelNamesShema(channelNames, t),
     onSubmit: async ({ name }) => {
@@ -28,7 +27,6 @@ const RenameModal = ({ closeModal }) => {
       };
       try {
         await renameChannel(updatedChannel);
-        dispatch(setActiveChannel(updatedChannel));
         toast.success(t('toastify.success.channel.rename'));
         closeModal();
       } catch (err) {

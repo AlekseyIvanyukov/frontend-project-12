@@ -1,10 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-
-const defaultChannel = {
-    id: '1',
-    name: 'general',
-    removable: false,
-  };
+import defaultChannel from '../../defaultChannel';
 
 const initialState = {
   activeChannel: defaultChannel,
