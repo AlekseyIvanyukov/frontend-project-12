@@ -5,7 +5,7 @@ import { apiPath } from '../../routes';
 const socket = io();
 
 const addSocketListener = async (
-  socket,
+  initSocket,
   event,
   cacheDataLoaded,
   updateCachedData,
@@ -13,33 +13,32 @@ const addSocketListener = async (
 ) => {
   try {
     await cacheDataLoaded;
-    const handleEvent = (payload) => {
-      updateCachedData((draft) => {
-        switch (event) {
-          case 'newChannel':
-          case 'newMessage':
-            draft.push(payload);
-            break;
-          case 'renameChannel': {
-            const channel = draft.find((ch) => ch.id === payload.id);
-            if (channel) {
-              channel.name = payload.name;
-            }
-            break;
+    const handleEvent = (payload) => updateCachedData((draft) => {
+      switch (event) {
+        case 'newChannel':
+        case 'newMessage':
+          draft.push(payload);
+          break;
+        case 'renameChannel': {
+          const channel = draft.find((ch) => ch.id === payload.id);
+          if (channel) {
+            channel.name = payload.name;
           }
-          case 'removeChannel':
-            return draft.filter((ch) => ch.id !== payload.id);
-          default:
-            break;
+          break;
         }
-      });
-    };
-    socket.on(event, handleEvent);
+        case 'removeChannel':
+          return draft.filter((ch) => ch.id !== payload.id);
+        default:
+          return draft;
+      }
+      return null;
+    });
+    initSocket.on(event, handleEvent);
   } catch (e) {
     console.error(e);
   }
   await cacheEntryRemoved;
-  socket.off(event);
+  initSocket.off(event);
 };
 
 export const chatApi = createApi({
