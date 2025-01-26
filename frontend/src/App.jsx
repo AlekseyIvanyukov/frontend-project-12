@@ -30,8 +30,8 @@ const App = () => (
       />
       <Provider store={store}>
         <AuthProvider>
-        <Navigation />
-        <Routes>
+          <Navigation />
+          <Routes>
           <Route path={routes.mainPagePath()} element={<MainPage />} />
           <Route path={routes.loginPagePath()} element={<LoginPage />} />
           <Route path={routes.signupPagePath()} element={<SignupPage />} />
